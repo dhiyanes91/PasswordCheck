@@ -7,16 +7,26 @@ public class PasswordCheckService {
 
     public Boolean doPasswordVerification(String password) {
         Boolean isOkPassword = false;
+        int flag = 0;
+
         if(password != null) {
+            flag++;
                 if(password.length() > 8) {
-                    if(password.matches(".*[A-Z].*")){
-                        if(password.matches(".*[a-z].*")){
-                            if(password.matches(".*[0-9].*")){
-                                isOkPassword = true;
-                            }
-                        }
-                    }
+                    flag++;
                 }
+                if(password.matches(".*[A-Z].*")) {
+                    flag++;
+                }
+                if(password.matches(".*[a-z].*")) {
+                    flag++;
+                }
+                if(password.matches(".*[0-9].*")){
+                    flag++;
+                }
+
+        }
+        if(flag >= 3) {
+            isOkPassword = true;
         }
         return isOkPassword;
     }
