@@ -8,7 +8,6 @@ public class PasswordCheckService {
     public Boolean doPasswordVerification(String password) {
         Boolean isOkPassword = false;
         if(password != null) {
-            if(! password.isEmpty()) {
                 if(password.length() > 8) {
                     if(password.matches(".*[A-Z].*")){
                         if(password.matches(".*[a-z].*")){
@@ -18,7 +17,6 @@ public class PasswordCheckService {
                         }
                     }
                 }
-            }
         }
         return isOkPassword;
     }

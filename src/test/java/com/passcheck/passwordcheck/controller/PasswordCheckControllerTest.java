@@ -39,21 +39,6 @@ public class PasswordCheckControllerTest {
     }
 
     @Test
-    public void verifyIsEmptyAsPassword() throws Exception {
-        //setup
-        final String password = "";
-
-        //given
-        given(passwordCheckService.doPasswordVerification(password)).willReturn(false);
-
-        //verify
-        this.mockMvc.perform(get("/verifyPassword?password="))
-                .andExpect(status().isOk())
-                .andExpect(content().string("false"));
-    }
-
-
-    @Test
     public void verifyPasswordLengthLessThan8Chars() throws Exception {
         //setup
         final String password = "Test";
@@ -126,5 +111,64 @@ public class PasswordCheckControllerTest {
                 .andExpect(content().string("true"));
     }
 
+    //Point 2 - Negative Scenarios
+
+    @Test
+    public void verifyPasswordWithAtLeastNot3OkConditionsOnlyCapitalLetters() throws Exception {
+        //setup
+        final String password = "TEST";
+
+        //given
+        given(passwordCheckService.doPasswordVerification(password)).willReturn(false);
+
+        //verify
+        this.mockMvc.perform(get("/verifyPassword?password=TEST"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("false"));
+    }
+
+    @Test
+    public void verifyPasswordWithAtLeastNot3OkConditionsOnlyNumbers() throws Exception {
+        //setup
+        final String password = "1234";
+
+        //given
+        given(passwordCheckService.doPasswordVerification(password)).willReturn(false);
+
+        //verify
+        this.mockMvc.perform(get("/verifyPassword?password=1234"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("false"));
+    }
+
+    @Test
+    public void verifyPasswordWithAtLeastNot3OkConditionsOnlySmallLetters() throws Exception {
+        //setup
+        final String password = "1234";
+
+        //given
+        given(passwordCheckService.doPasswordVerification(password)).willReturn(false);
+
+        //verify
+        this.mockMvc.perform(get("/verifyPassword?password=1234"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("false"));
+    }
+
+    //Point 2 Positive Scenario
+
+    @Test
+    public void verifyPasswordWithAtLeast3OkConditions() throws Exception {
+        //setup
+        final String password = "TEST123";
+
+        //given
+        given(passwordCheckService.doPasswordVerification(password)).willReturn(true);
+
+        //verify
+        this.mockMvc.perform(get("/verifyPassword?password=TEST123"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
 
 }
