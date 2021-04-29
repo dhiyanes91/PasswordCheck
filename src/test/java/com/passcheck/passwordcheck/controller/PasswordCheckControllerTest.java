@@ -170,4 +170,36 @@ public class PasswordCheckControllerTest {
                 .andExpect(content().string("true"));
     }
 
+    //Point 3 Negative Scenario
+
+    @Test
+    public void verifyPasswordWithNoMustLowerCase() throws Exception {
+        //setup
+        final String password = "TESTING123";
+
+        //given
+        given(passwordCheckService.doPasswordVerification(password)).willReturn(true);
+
+        //verify
+        this.mockMvc.perform(get("/verifyPassword?password=TESTING123"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
+
+    //Point 3 Positive Scenario
+
+    @Test
+    public void verifyPasswordWithMustLowerCase() throws Exception {
+        //setup
+        final String password = "Test123";
+
+        //given
+        given(passwordCheckService.doPasswordVerification(password)).willReturn(true);
+
+        //verify
+        this.mockMvc.perform(get("/verifyPassword?password=Test123"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+    }
+
 }

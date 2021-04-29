@@ -81,4 +81,22 @@ public class PasswordCheckServiceTest {
         PasswordCheckService service = new PasswordCheckService();
         assertEquals(service.doPasswordVerification(password) , true);
     }
+
+    //Point 3 Negative Scenario
+
+    @Test
+    public void verifyPasswordWithoutMustLowerCase() throws Exception {
+        final String password = "TESTING123";
+        PasswordCheckService service = new PasswordCheckService();
+        assertEquals(service.doPasswordVerification(password) , false);
+    }
+
+    //Point 3 Positive Scenario
+
+    @Test
+    public void verifyPasswordWithMustLowerCase() throws Exception {
+        final String password = "Test123";
+        PasswordCheckService service = new PasswordCheckService();
+        assertEquals(service.doPasswordVerification(password) , true);
+    }
 }

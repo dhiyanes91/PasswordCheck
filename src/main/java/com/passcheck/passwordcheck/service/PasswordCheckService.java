@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PasswordCheckService {
 
-    public Boolean doPasswordVerification(String password) {
+    public Boolean doPasswordVerification(String password) throws Exception{
         Boolean isOkPassword = false;
         int flag = 0;
 

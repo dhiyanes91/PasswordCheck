@@ -14,7 +14,7 @@ public class PasswordCheckController {
     PasswordCheckService passwordCheckService;
 
     @GetMapping(value="/verifyPassword")
-    public @ResponseBody Boolean doPasswordVerification (@RequestParam String password){
+    public @ResponseBody Boolean doPasswordVerification (@RequestParam String password) throws  Exception{
         return passwordCheckService.doPasswordVerification(password);
     }
 }
