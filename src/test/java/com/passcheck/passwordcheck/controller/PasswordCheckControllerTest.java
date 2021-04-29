@@ -22,6 +22,7 @@ public class PasswordCheckControllerTest {
     @MockBean
     PasswordCheckService passwordCheckService;
 
+    //Point 1 - Negative Scenarios
 
     @Test
     public void verifyIsNullAsPassword() throws Exception {
@@ -108,6 +109,21 @@ public class PasswordCheckControllerTest {
         this.mockMvc.perform(get("/verifyPassword?password=TestString"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("false"));
+    }
+
+    //Point 1 - Positive check
+    @Test
+    public void verifyPasswordWithAllOkConditions() throws Exception {
+        //setup
+        final String password = "TestString1";
+
+        //given
+        given(passwordCheckService.doPasswordVerification(password)).willReturn(true);
+
+        //verify
+        this.mockMvc.perform(get("/verifyPassword?password=TestString1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
     }
 
 
