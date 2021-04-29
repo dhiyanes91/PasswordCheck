@@ -16,14 +16,14 @@ public class PasswordCheckServiceTest {
     public void verifyPasswordLengthLessThan8Chars() throws Exception {
         final String password = "Test";
         PasswordCheckService service = new PasswordCheckService();
-        assertEquals(service.doPasswordVerification(password) , false);
+        assertEquals(service.checkPasswordLength(password) , false);
     }
 
     @Test
     public void verifyPasswordNotWithOneUpperChar() throws Exception {
         final String password = "test12345";
         PasswordCheckService service = new PasswordCheckService();
-        assertEquals(service.doPasswordVerification(password) , false);
+        assertEquals(service.checkUpperChar(password) , false);
     }
 
 
@@ -31,7 +31,7 @@ public class PasswordCheckServiceTest {
     public void verifyPasswordNotWithOneLowerChar() throws Exception {
         final String password = "TEST12345";
         PasswordCheckService service = new PasswordCheckService();
-        assertEquals(service.doPasswordVerification(password) , false);
+        assertEquals(service.checkLowerChar(password) , false);
     }
 
 
@@ -39,7 +39,7 @@ public class PasswordCheckServiceTest {
     public void verifyPasswordNotWithOneNumber() throws Exception {
         final String password = "TESTString";
         PasswordCheckService service = new PasswordCheckService();
-        assertEquals(service.doPasswordVerification(password) , false);
+        assertEquals(service.checkNumber(password) , false);
     }
 
     //Point 1 - Positive check
@@ -77,7 +77,7 @@ public class PasswordCheckServiceTest {
 
     @Test
     public void verifyPasswordWithAtLeast3OkConditions() throws Exception {
-        final String password = "TEST123";
+        final String password = "Test123";
         PasswordCheckService service = new PasswordCheckService();
         assertEquals(service.doPasswordVerification(password) , true);
     }
